@@ -1,7 +1,6 @@
 "use client"
 
 import { Input } from "@/components/ui/input"
-
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
@@ -232,7 +231,7 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
     return (
       <div className="container px-4 py-16 mx-auto text-center md:px-6 lg:px-8">
         <h1 className="text-3xl font-bold">Blog Post Not Found</h1>
-        <p className="mt-4 text-gray-600">The blog post you're looking for doesn't exist.</p>
+        <p className="mt-4 text-gray-600">{`The blog post you're looking for doesn't exist.`}</p>
         <Link href="/blog">
           <Button className="mt-6 bg-[#4CAF50] hover:bg-[#3d8b40] text-white">Back to Blog</Button>
         </Link>
@@ -246,11 +245,11 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
     : []
 
   return (
-    <>
+    <div className="overflow-x-hidden">
       {/* Hero Section */}
       <section className="relative bg-[#1B5E20]">
         <div className="absolute inset-0 opacity-20 bg-pattern"></div>
-        <div className="container relative px-4 py-8 sm:py-12 md:py-16 mx-auto md:px-6 lg:px-8">
+        <div className="container relative px-4 py-8 sm:py-12 md:py-16 mx-auto md:px-6 lg:px-8 max-w-7xl">
           <Link href="/blog" className="inline-flex items-center text-white hover:underline mb-4 sm:mb-6">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Blog
@@ -262,7 +261,9 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
             transition={{ duration: 0.6 }}
           >
             <Badge className="mb-3 sm:mb-4 bg-white text-[#1B5E20]">{post.category}</Badge>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">{post.title}</h1>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
+              {post.title}
+            </h1>
             <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-4 sm:mt-6 text-white/80">
               <div className="flex items-center">
                 <User className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
@@ -282,20 +283,26 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
       </section>
 
       {/* Featured Image */}
-      <div className="container px-4 mx-auto -mt-8 sm:-mt-12 md:-mt-16 md:px-6 lg:px-8">
+      <div className="container px-4 mx-auto -mt-8 sm:-mt-12 md:-mt-16 md:px-6 lg:px-8 max-w-7xl">
         <motion.div
           className="relative h-[200px] sm:h-[250px] md:h-[300px] lg:h-[400px] rounded-lg overflow-hidden shadow-xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.6 }}
         >
-          <Image src={post.image || "/placeholder.svg"} alt={post.title} fill className="object-cover" />
+          <Image
+            src={post.image || "/placeholder.svg"}
+            alt={post.title}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw"
+          />
         </motion.div>
       </div>
 
       {/* Blog Content */}
       <section className="py-8 sm:py-12 md:py-16">
-        <div className="container px-4 mx-auto md:px-6 lg:px-8">
+        <div className="container px-4 mx-auto md:px-6 lg:px-8 max-w-7xl">
           <div className="grid grid-cols-1 gap-6 lg:gap-8 lg:grid-cols-3">
             {/* Main Content */}
             <div className="lg:col-span-2 order-2 lg:order-1">
@@ -306,7 +313,7 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
                 transition={{ delay: 0.3, duration: 0.6 }}
               >
                 <div
-                  className="prose prose-sm sm:prose-base lg:prose-lg max-w-none"
+                  className="prose prose-sm sm:prose-base lg:prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-li:text-gray-700"
                   dangerouslySetInnerHTML={{ __html: post.content }}
                 ></div>
 
@@ -351,6 +358,7 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
                       alt={post.author}
                       fill
                       className="object-cover"
+                      sizes="64px"
                     />
                   </div>
                   <div className="text-center sm:text-left">
@@ -385,12 +393,13 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
                             alt={relatedPost?.title || ""}
                             fill
                             className="object-cover"
+                            sizes="(max-width: 640px) 64px, 80px"
                           />
                         </div>
                         <div>
                           <Link
                             href={`/blog/${relatedPost?.id}`}
-                            className="text-sm sm:text-base font-medium hover:text-[#4CAF50] line-clamp-2"
+                            className="text-sm sm:text-base font-medium hover:text-[#4CAF50] line-clamp-2 transition-colors"
                           >
                             {relatedPost?.title}
                           </Link>
@@ -403,16 +412,16 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
 
                 {/* Categories */}
                 <motion.div
-                  className="p-6 bg-white rounded-lg shadow-sm"
+                  className="p-4 sm:p-6 bg-white rounded-lg shadow-sm"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5, duration: 0.6 }}
                 >
-                  <h3 className="text-xl font-bold">Categories</h3>
+                  <h3 className="text-lg sm:text-xl font-bold">Categories</h3>
                   <div className="flex flex-wrap gap-2 mt-4">
                     {["Business", "Career", "Analytics", "Trends", "Skills", "Resume"].map((category) => (
                       <Link key={category} href={`/blog/category/${category.toLowerCase()}`}>
-                        <Badge variant="outline" className="text-gray-700 hover:bg-gray-100">
+                        <Badge variant="outline" className="text-gray-700 hover:bg-gray-100 transition-colors">
                           {category}
                         </Badge>
                       </Link>
@@ -422,15 +431,15 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
 
                 {/* Newsletter */}
                 <motion.div
-                  className="p-6 bg-[#E8F5E9] rounded-lg"
+                  className="p-4 sm:p-6 bg-[#E8F5E9] rounded-lg"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6, duration: 0.6 }}
                 >
-                  <h3 className="text-xl font-bold">Subscribe</h3>
+                  <h3 className="text-lg sm:text-xl font-bold">Subscribe</h3>
                   <p className="mt-2 text-sm text-gray-700">Get the latest posts delivered straight to your inbox.</p>
                   <div className="mt-4 space-y-2">
-                    <Input type="email" placeholder="Your email address" />
+                    <Input type="email" placeholder="Your email address" className="w-full" />
                     <Button className="w-full bg-[#4CAF50] hover:bg-[#3d8b40] text-white">Subscribe</Button>
                   </div>
                 </motion.div>
@@ -441,17 +450,17 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
       </section>
 
       {/* More Posts */}
-      <section className="py-16 bg-gray-50">
-        <div className="container px-4 mx-auto md:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center">More Articles</h2>
-          <div className="grid grid-cols-1 gap-8 mt-12 sm:grid-cols-2 lg:grid-cols-3">
+      <section className="py-12 sm:py-16 bg-gray-50">
+        <div className="container px-4 mx-auto md:px-6 lg:px-8 max-w-7xl">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center">More Articles</h2>
+          <div className="grid grid-cols-1 gap-6 sm:gap-8 mt-8 sm:mt-12 sm:grid-cols-2 lg:grid-cols-3">
             {relatedPostsData
               .filter((p) => !post.relatedPosts?.includes(p.id))
               .slice(0, 3)
               .map((post, index) => (
                 <motion.div
                   key={post.id}
-                  className="overflow-hidden bg-white rounded-lg shadow-sm"
+                  className="overflow-hidden bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -463,23 +472,26 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
                       alt={post.title}
                       fill
                       className="object-cover transition-transform duration-300 hover:scale-105"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                     <div className="absolute top-4 left-4">
                       <Badge className="bg-[#4CAF50] hover:bg-[#3d8b40] text-white">{post.category}</Badge>
                     </div>
                   </div>
-                  <div className="p-6">
+                  <div className="p-4 sm:p-6">
                     <Link href={`/blog/${post.id}`} className="block">
-                      <h3 className="text-lg font-bold hover:text-[#4CAF50] transition-colors">{post.title}</h3>
+                      <h3 className="text-base sm:text-lg font-bold hover:text-[#4CAF50] transition-colors line-clamp-2">
+                        {post.title}
+                      </h3>
                     </Link>
-                    <p className="mt-3 text-gray-600 line-clamp-2">{post.excerpt}</p>
-                    <div className="flex items-center mt-4 text-sm text-gray-500">
+                    <p className="mt-2 sm:mt-3 text-sm sm:text-base text-gray-600 line-clamp-2">{post.excerpt}</p>
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-4 mt-3 sm:mt-4 text-xs sm:text-sm text-gray-500">
                       <div className="flex items-center">
-                        <User className="w-4 h-4 mr-1" />
+                        <User className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
                         <span>By {post.author}</span>
                       </div>
-                      <div className="flex items-center ml-4">
-                        <Calendar className="w-4 h-4 mr-1" />
+                      <div className="flex items-center">
+                        <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
                         <span>{post.date}</span>
                       </div>
                     </div>
@@ -487,13 +499,15 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
                 </motion.div>
               ))}
           </div>
-          <div className="mt-12 text-center">
+          <div className="mt-8 sm:mt-12 text-center">
             <Link href="/blog">
-              <Button className="bg-[#4CAF50] hover:bg-[#3d8b40] text-white">View All Posts</Button>
+              <Button className="bg-[#4CAF50] hover:bg-[#3d8b40] text-white px-6 sm:px-8 py-2 sm:py-3">
+                View All Posts
+              </Button>
             </Link>
           </div>
         </div>
       </section>
-    </>
+    </div>
   )
 }

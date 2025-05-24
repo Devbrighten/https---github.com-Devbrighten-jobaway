@@ -344,7 +344,7 @@ export default function AboutPage() {
                   <div className="ml-3 sm:ml-4">
                     <h3 className="text-lg sm:text-xl font-semibold">Building Communities</h3>
                     <p className="mt-1 sm:mt-2 text-sm sm:text-base text-gray-600 leading-relaxed">
-                      We're creating a community where hospitality professionals can connect, learn, and grow together.
+                      {`We're creating a community where hospitality professionals can connect, learn, and grow together.`}
                     </p>
                   </div>
                 </div>
@@ -368,7 +368,7 @@ export default function AboutPage() {
                   <div className="ml-3 sm:ml-4">
                     <h3 className="text-lg sm:text-xl font-semibold">Elevating Standards</h3>
                     <p className="mt-1 sm:mt-2 text-sm sm:text-base text-gray-600 leading-relaxed">
-                      We're raising the bar for hospitality staffing, ensuring excellence at every level of service.
+                      {`We're raising the bar for hospitality staffing, ensuring excellence at every level of service.`}
                     </p>
                   </div>
                 </div>
@@ -772,7 +772,7 @@ export default function AboutPage() {
                     className="sm:w-8 sm:h-8"
                   >
                     <path
-                      d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                      d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                       stroke="white"
                       strokeWidth="2"
                       strokeLinecap="round"
@@ -875,8 +875,7 @@ export default function AboutPage() {
               viewport={{ once: true }}
               transition={{ delay: 0.2, duration: 0.6 }}
             >
-              Whether you're looking for your next career opportunity or searching for qualified talent, JobAway is here
-              to help.
+              {`Whether you're looking for your next career opportunity or searching for qualified talent, JobAway is here to help.`}
             </motion.p>
 
             <motion.div
@@ -938,6 +937,7 @@ export default function AboutPage() {
     </div>
   )
 }
+
 
 
 // "use client"
