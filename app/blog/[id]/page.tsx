@@ -213,19 +213,41 @@ const relatedPostsData = [
   },
 ]
 
-export default function BlogPostPage({ params }: { params: { id: string } }) {
+interface PageProps {
+  params: Promise<{ id: string }>
+}
+
+export default function BlogPostPage({ params }: PageProps) {
   const [mounted, setMounted] = useState(false)
+  const [postId, setPostId] = useState<number | null>(null)
+  const [post, setPost] = useState<(typeof blogPosts)[0] | null>(null)
 
   useEffect(() => {
     setMounted(true)
-  }, [])
 
-  if (!mounted) {
-    return null
+    // Handle async params for Next.js 15
+    const getParams = async () => {
+      const resolvedParams = await params
+      const id = Number.parseInt(resolvedParams.id)
+      setPostId(id)
+
+      const foundPost = blogPosts.find((p) => p.id === id)
+      setPost(foundPost || null)
+    }
+
+    getParams()
+  }, [params])
+
+  if (!mounted || postId === null) {
+    return (
+      <div className="container px-4 py-16 mx-auto text-center md:px-6 lg:px-8">
+        <div className="animate-pulse">
+          <div className="h-8 bg-gray-200 rounded w-1/2 mx-auto mb-4"></div>
+          <div className="h-4 bg-gray-200 rounded w-1/3 mx-auto"></div>
+        </div>
+      </div>
+    )
   }
-
-  const postId = Number.parseInt(params.id)
-  const post = blogPosts.find((p) => p.id === postId)
 
   if (!post) {
     return (
