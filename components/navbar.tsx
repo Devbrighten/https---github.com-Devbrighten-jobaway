@@ -48,15 +48,15 @@ const navItems = [
       { title: "404", href: "/404" },
     ],
   },
-  {
-    title: "Blog",
-    href: "/blog",
-    hasDropdown: true,
-    dropdownItems: [
-      { title: "Blog Grid", href: "/blog" },
-      { title: "Blog Details", href: "/blog/1" },
-    ],
-  },
+  // {
+  //   title: "Blog",
+  //   href: "/blog",
+  //   hasDropdown: true,
+  //   dropdownItems: [
+  //     { title: "Blog Grid", href: "/blog" },
+  //     { title: "Blog Details", href: "/blog/1" },
+  //   ],
+  // },
   {
     title: "Contact",
     href: "/contact",
