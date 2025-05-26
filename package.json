@@ -41,6 +41,7 @@
     "@types/node": "^20",
     "@types/radix-ui": "...",
     "@types/react": "^19",
+    "@types/react-day-picker": "^5.2.1",
     "@types/react-dom": "^19",
     "@typescript-eslint/eslint-plugin": "^8.32.1",
     "@typescript-eslint/parser": "^8.32.1",

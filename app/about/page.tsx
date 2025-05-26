@@ -3,8 +3,11 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { CheckCircle, ArrowRight, X } from "lucide-react"
+import { ArrowRight, X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
+
+// Use Lucide React icons instead of custom SVGs to avoid path errors
+import { CheckCircle } from "lucide-react"
 
 // Framer Motion variants for animations
 const fadeIn = {
@@ -937,7 +940,6 @@ export default function AboutPage() {
     </div>
   )
 }
-
 
 
 // "use client"
